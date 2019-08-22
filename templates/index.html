@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Gender Tracking Tool</h1>
+  <p>Welcome to Gender Tracking Tool, a website developed by <em>The BTU Solutions/Data Team</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>The tracking tool has the following record counts:</p>
+  <ul>
+    <li><strong>Activities:</strong> {{ num_activities }}</li>
+    <li><strong>Activity Occurrence:</strong> {{ num_instances }}</li>
+
+  </ul>
+{% endblock %}
