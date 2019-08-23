@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h4>List of registered Activities</h4>
+  <h4>{{ activity.activity }}</h4>
 
   <p><strong>Activity:</strong> <a href="">{{ activity.activity }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Description:</strong> {{ activity.description }}</p>
@@ -9,22 +9,27 @@
   <p><strong>Outcome:</strong> {{ activity.outcome }}</p>
     <p><strong>Cost:</strong> {{ activity.cost }}</p>
 
+      <input type="button" value="Delete">
+
+
+      <input type="button" value="Update">
+
 {#  <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>#}
 
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Outcomes</h4>
-
-    {% for copy in activity.outcomeinstance_set.all %}
-      <hr>
-      <p class="{% if copy.status == 'F' %}text-success
-        {% elif copy.status == 'M' %}text-danger
-        {% else %}text-warning{% endif %}">
-      {{ copy.get_status_display }}</p>
-      {% if copy.status != 'F' %}
-        <p><strong>Due to hit the target:</strong> {{copy.due_back}}</p>
-      {% endif %}
-      <p><strong>Imprint:</strong> {{copy.imprint}}</p>
-      <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
-    {% endfor %}
-  </div>
+{#  <div style="margin-left:20px;margin-top:20px">#}
+{#    <h4>Outcomes</h4>#}
+{##}
+{#    {% for copy in activity.outcomeinstance_set.all %}#}
+{#      <hr>#}
+{#      <p class="{% if copy.status == 'F' %}text-success#}
+{#        {% elif copy.status == 'M' %}text-danger#}
+{#        {% else %}text-warning{% endif %}">#}
+{#      {{ copy.get_status_display }}</p>#}
+{#      {% if copy.status != 'F' %}#}
+{#        <p><strong>Due to hit the target:</strong> {{copy.due_back}}</p>#}
+{#      {% endif %}#}
+{#      <p><strong>Imprint:</strong> {{copy.imprint}}</p>#}
+{#      <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>#}
+{#    {% endfor %}#}
+{#  </div>#}
 {% endblock %}

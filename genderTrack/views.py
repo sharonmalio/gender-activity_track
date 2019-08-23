@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 
 from django.http import HttpResponse
 from django.views import generic
@@ -40,3 +43,19 @@ class ActivityListView(generic.ListView):
 class ActivityDetailView(generic.DetailView):
     model = Activity
     paginate_by = 10
+
+
+class ActivityCreate(CreateView):
+    model = Activity
+    fields = '__all__'
+    initial = {'date_of_creation': '05/01/2018'}
+
+
+class ActivityUpdate(UpdateView):
+    model = Activity
+    fields = ['outcome', 'activity', 'sub_activity']
+
+
+class ActivityDelete(DeleteView):
+    model = Activity
+    success_url = reverse_lazy('activities')
