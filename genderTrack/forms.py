@@ -7,15 +7,15 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class RegisterActivityForm(forms.Form):
-    renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
+    renewal_date = forms.DateField()
 
-    outcome = forms.ChoiceField(help_text='Select your Outcome for this activity')
+    outcome = forms.ChoiceField()
     activity = forms.CharField(max_length=200)
 
-    sub_activity = forms.CharField(max_length=300, help_text='Enter the sub activity if any')
+    sub_activity = forms.CharField(max_length=300)
 
-    cost = forms.FloatField(max_length=300, help_text='Enter the actual cost of the activity above')
-    description = forms.TextField(max_length=300, help_text='Enter a brief description of the activity')
+    cost = forms.FloatField(max_length=300)
+    description = forms.TextField(max_length=300)
 
     def register_activity_form(self):
         data = self.cleaned_data['renewal_date']

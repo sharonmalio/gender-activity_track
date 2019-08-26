@@ -18,9 +18,8 @@
                 {% else %}
                     <a href="{% url 'login'%}?next={{request.path}}">Login</a>
                 {% endif %}
-                User: {{ user.get_username }}
-
         </div>
+        <div style="color: #ffffff;text-align: right; font-size: medium;"> Welcome {{ user.get_username }}</div>
         <div class="navbar-side navbar-right"></div>
     </div>
 </div>

@@ -5,6 +5,7 @@
 /*}*/
 
 body{
+    /*text-align: center;*/
     /*margin: 70px auto;*/
     /*max-width: 650px;*/
     /*line-height: 1.6;*/
@@ -15,15 +16,12 @@ body{
 
 h1,h2, h3{
     line-height: 1.2;
-    text-align: left;
+    /*text-align: left;*/
 }
-a,li{
-    color: black;
-}
-
 form{
     margin: 0 auto;
     padding: 1em;
+    align-content: center;
     /*border:;*/
     /*border-radius: 1em;*/
 }
@@ -60,17 +58,27 @@ p.error-message{
     font-weight: bold;
 
 }
-.navbar{
+.navbar {
     width: 100%;
     height: 70px;
     background-color: Blue;
     text-align: left;
+
+}
+
+.navbar a{
+    padding: 10px;
+    color: white;
+
+    /*text-align: left;*/
+
 }
 
 .navbar-content {
     display: inline-block;
     float:left;
     height: 100px;
-    color: black;
+    color: white;
+
     /*align-items: center;*/
 }
