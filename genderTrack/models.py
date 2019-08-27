@@ -14,14 +14,20 @@ class Outcome(models.Model):
 
 class Activity(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
+    outcome_entries = [
+        ('Outcome1', 'Outcome 1'),
+        ('Outcome2', 'Outcome 2'),
+        ('Outcome3', 'Outcome 3'),
+        ('Outcome4', 'Outcome 4'),
+    ]
+    outcome = models.CharField(max_length=8, choices=outcome_entries, default='outcome 1')
 
-    outcome = models.ManyToManyField(Outcome, help_text='Select your Outcome for this activity')
-    activity = models.CharField(max_length=200)
+    activity = models.CharField(max_length=500)
 
-    sub_activity = models.CharField(max_length=300, help_text='Enter the sub activity if any')
+    sub_activity = models.CharField(max_length=500)
 
-    cost = models.FloatField(max_length=300, help_text='Enter the actual cost of the activity above')
-    description = models.TextField(max_length=300, help_text='Enter a brief description of the activity')
+    cost = models.FloatField(max_length=500)
+    description = models.CharField(max_length=500)
 
     def display_outcome(self):
         """Create a string for the Outcome. This is required to display genre in Admin."""
