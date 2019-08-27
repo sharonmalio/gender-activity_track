@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 class RegisterActivityForm(forms.Form):
     renewal_date = forms.DateField()
 
-    outcome = forms.ChoiceField()
+    outcome = forms.Select()
     activity = forms.CharField(max_length=200)
 
     sub_activity = forms.CharField(max_length=300)
