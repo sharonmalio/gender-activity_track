@@ -14,14 +14,14 @@ class Outcome(models.Model):
 
 class Activity(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
-    outcome_entries = [
-        ('Outcome1', 'Outcome 1'),
-        ('Outcome2', 'Outcome 2'),
-        ('Outcome3', 'Outcome 3'),
-        ('Outcome4', 'Outcome 4'),
-    ]
-    outcome = models.CharField(max_length=8, choices=outcome_entries, default='outcome 1')
-
+    # outcome_entries = [
+    #     ('Outcome1', 'Outcome 1'),
+    #     ('Outcome2', 'Outcome 2'),
+    #     ('Outcome3', 'Outcome 3'),
+    #     ('Outcome4', 'Outcome 4'),
+    # ]
+    # outcome = models.CharField(max_length=8, choices=outcome_entries, default='outcome 1')
+    outcome = models.ManyToManyField(choices=Outcome, max_length=8)
     activity = models.CharField(max_length=500)
 
     sub_activity = models.CharField(max_length=500)
