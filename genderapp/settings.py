@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'genderApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'Gender',
-        'HOST': 'WFPKENRB-IT004\SQLEXPRESS',
+        'NAME': 'GenderActivityTracking',
+        'HOST': 'localhost\SQLEXPRESS',
         'USER': 'sa',
         'PASSWORD': 'rocky@1234',
 

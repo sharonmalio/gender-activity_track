@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 
-from genderTrack.models import Activity, Outcome, OutcomeInstance
+from genderTrack.models import Activity
 
 
 def index(request):
@@ -14,17 +14,17 @@ def index(request):
 
     # Generate counts of some of the main objects
     num_activities = Activity.objects.all().count()
-    num_instances = OutcomeInstance.objects.all().count()
+    # num_instances = OutcomeInstance.objects.all().count()
     # Number of visits to this view, as counted in the session variable.
     num_visits = request.session.get('num_visits', 1)
     request.session['num_visits'] = num_visits + 1
     # Available books (status = 'a')
-    num_instances_available = OutcomeInstance.objects.filter(status__exact='F').count()
+    # num_instances_available = OutcomeInstance.objects.filter(status__exact='F').count()
 
     context = {
         'num_activities': num_activities,
-        'num_instances': num_instances,
-        'num_instances_available': num_instances_available,
+        # 'num_instances': num_instances,
+        # 'num_instances_available': num_instances_available,
         'num_visits':num_visits
     }
 
