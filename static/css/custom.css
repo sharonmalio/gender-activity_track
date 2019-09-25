@@ -2,12 +2,26 @@
 /* Write your CSS here */
 
 .jumbotron {
-    width: 100%;
-    height: 150px;
-    margin-bottom:0; 
+    margin-bottom:0;
+    background: #0000ff;
+    color: Black;
+}
+.custommade{
+    margin-bottom:0;
     background: #0000ff;
     color: white;
+    width: 100%;
+    height: 100%;
+
 }
+.navbar {
+    width: 100%;
+    height: 70px;
+    /*background-color: Blue;*/
+    /*text-align: left;*/
+
+}
+
 /*!*.sidebar-nav {*!*/
 /*!*    margin-top: 20px;*!*/
 /*!*    padding: 0;*!*/
@@ -68,13 +82,7 @@
 /*    font-weight: bold;*/
 
 /*}*/
-/*.navbar {*/
-/*    width: 100%;*/
-/*    height: 70px;*/
-/*    background-color: Blue;*/
-/*    text-align: left;*/
 
-/*}*/
 
 /*.navbar a{*/
 /*    padding: 10px;*/

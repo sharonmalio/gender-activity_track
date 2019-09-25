@@ -1,17 +1,28 @@
-{% extends "base.html" %}
+
+
+{% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
-{#{% load static %}#}
 
 
 {% block content %}
-    <h1>Fill in the Form</h1>
-  <form action="" method="post">
-           {% csrf_token %}
-            {{ form }}
-
-{#        <table>{{ form.as_table }}</table>#}
-     <button type="submit" class="btn btn-success">Save Activity</button>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-6">
+        {{ form.outcome|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.cost|as_crispy_field }}
+      </div>
+          <div class="col-6">
+            {{ form.activity|as_crispy_field }}
+      </div>
+          <div class="col-6">
+        {{ form.sub_activity|as_crispy_field }}
+      </div>
+    </div>
+      {{ form.description|as_crispy_field }}
+    <button type="submit" class="btn btn-success">Save person</button>
   </form>
 {% endblock %}
-

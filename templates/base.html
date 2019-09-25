@@ -15,15 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="{% static 'js/custom.js' %}"></script>
-{#    /<link rel='icon' href='../static/img/logo.png' type='image/x-icon' sizes="16x16" />#}
 
-{#<img src="{% static 'img/Django-Post2.png' %}">#}
-{#<link rel="icon" href="{% static 'img/favicon.ico' %}"/>#}
-     {% include "navigation.html" %}
+
 
 </head>
 <body>
-    <header class="navbar navbar-fixed-top">
+    <header>
             {% include "navigation.html" %}
     </header>
     <div id="main" role="main">
@@ -32,6 +29,9 @@
             {% endblock %}
         </div>
     </div>
-</body>
 
+</body>
+  <div class="custommade text-center">
+        <p>Created by the Gender Team</p>
+    </div>
 </html>

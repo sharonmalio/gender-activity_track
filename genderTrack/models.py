@@ -20,14 +20,14 @@ class Activity(models.Model):
         ('Outcome3', 'Outcome 3'),
         ('Outcome4', 'Outcome 4'),
     ]
-    outcome = models.CharField(max_length=8, choices=outcome_entries, default='outcome 1')
+    outcome = models.CharField(max_length=8, choices=outcome_entries, default='')
     # outcome = models.ForeignKey('Outcome', max_length=8, on_delete=models.CASCADE, default="", editable=True)
-    activity = models.CharField(max_length=500)
+    activity = models.CharField(max_length=500, help_text="Please enter the activity you are reporting for")
 
-    sub_activity = models.CharField(max_length=500)
+    sub_activity = models.CharField(max_length=500, help_text="Please enter the sub_activity of the above activity")
 
-    cost = models.FloatField(max_length=500)
-    description = models.CharField(max_length=500)
+    cost = models.FloatField(max_length=500, help_text="enter the cost of the gender activity")
+    description = models.TextField(max_length=500, help_text="Tell us more")
 
     def display_outcome(self):
         """Create a string for the Outcome. This is required to display genre in Admin."""
