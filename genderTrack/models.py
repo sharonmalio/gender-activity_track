@@ -1,6 +1,8 @@
 from django.db import models
+from django.forms import ModelForm
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 import uuid
+from django.db.models import Sum
 
 
 # class Outcome(models.Model):
@@ -21,16 +23,28 @@ class Activity(models.Model):
         ('Outcome4', 'Outcome 4'),
     ]
     outcome = models.CharField(max_length=8, choices=outcome_entries, default='')
+    total_budget = models.FloatField(max_length=100, default="", editable=True, help_text="Please enter the total "
+                                                                                           "budget for your outcome")
     # outcome = models.ForeignKey('Outcome', max_length=8, on_delete=models.CASCADE, default="", editable=True)
-    activity = models.CharField(max_length=500, help_text="Please enter the activity you are reporting for")
+    activity = models.CharField(max_length=500, help_text="Please Enter the activity you are reporting for")
 
-    sub_activity = models.CharField(max_length=500, help_text="Please enter the sub_activity of the above activity")
+    sub_activity = models.CharField(max_length=500, help_text="Please Enter the sub_activity of the above activity")
 
-    cost = models.FloatField(max_length=500, help_text="enter the cost of the gender activity")
-    description = models.TextField(max_length=500, help_text="Tell us more")
+    cost = models.FloatField(max_length=500, help_text="Enter the cost of the gender activity")
+    description = models.TextField(max_length=500, help_text="Tell us more here")
+
+    def calculate(self):
+        if self.outcome:
+            total_sum = self.objects.aggregate(Sum('cost'))
+            percentage = (total_sum/self.total_budget) * 100
+            if percentage < 15:
+                print("Need a Follow Up")
+            else:
+                print("doing Pretty well")
+            return percentage
 
     def display_outcome(self):
-        """Create a string for the Outcome. This is required to display genre in Admin."""
+        """Create a string for the Outcome."""
         return ', '.join(outcome.name for outcome in self.outcome.all())
 
     display_outcome.short_description = 'Outcome'
@@ -44,31 +58,27 @@ class Activity(models.Model):
         return reverse('activity-detail', args=[str(self.id)])
 
 
-# class OutcomeInstance(models.Model):
-#     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-#                           help_text='Unique ID for this particular book across whole library')
-#     outcome = models.ForeignKey('Outcome', on_delete=models.SET_NULL, null=True)
-#     imprint = models.CharField(max_length=200)
-#     due_back = models.DateField(null=True, blank=True)
+class ActivityForm(ModelForm):
+    class Meta:
+        model = Activity
+        fields = ['outcome', 'total_budget', 'activity', 'sub_activity', 'cost', 'description']
+
+
+# class CalculateTotals(models.Model):
+#     select_outcome = models.ForeignKey(Activity, on_delete=models.PROTECT)
 #
-#     Gender_Outcome_Target = (
-#         ('F', 'Full Target'),
-#         ('M', 'Medium Target'),
-#         ('B', 'Below Target'),
-#     )
+#     def calculate(self):
+#         if  self.select_outcome:
+#             Activity.objects.aggregate(total_sum = Sum('cost'))
+#         else:
+#             print("An error has occured")
+#         return total_sum
 #
-#     status = models.CharField(
-#         max_length=1,
-#         choices=Gender_Outcome_Target,
-#         blank=True,
-#         default='m',
-#         help_text='Status of the target',
-#     )
-#
-#     class Meta:
-#         ordering = ['due_back']
-#
-#     def __str__(self):
-#         """String for representing the Model object."""
-#         return f'{self.id} ({self.outcome.name})'
+#     def calculate_percentage(self):
+#         percentage = (total_sum/Activity.total_budget)*100
+#         if percentage < 15:
+#             print("Need a Follow Up")
+#         else:
+#             print("doing Pretty well")
+#         return percentage
+

@@ -14,6 +14,7 @@ class RegisterActivityForm(forms.Form):
 
     outcome = forms.CharField(label='What is the Outcome you are reporting for?',
                               widget=forms.Select(choices=outcome_entries))
+    total_budget = forms.FloatField(max_length=300)
     activity = forms.CharField(max_length=200)
 
     sub_activity = forms.CharField(max_length=300)
