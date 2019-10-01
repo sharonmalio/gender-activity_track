@@ -3,16 +3,14 @@
 {% block content %}
   <h4>{{ activity.activity }}</h4>
 
-  <p><strong>Activity:</strong> <a href="">{{ activity.activity }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Activity:</strong> <a href="">{{ activity.activity }}</a></p>
   <p><strong>Description:</strong> {{ activity.description }}</p>
   <p><strong>Sub-Activity:</strong> {{ activity.sub_activity }}</p>
   <p><strong>Outcome:</strong> {{ activity.outcome }}</p>
   <p><strong>Cost:</strong> {{ activity.cost }}</p>
 
-      <input type="button" value="Delete">
-
-
-      <input type="button" value="Update">
+  <input type="button" value="Delete">
+  <input type="button" value="Update">
 
 {#  <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>#}
 

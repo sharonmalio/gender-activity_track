@@ -33,21 +33,22 @@ class Activity(models.Model):
     cost = models.FloatField(max_length=500, help_text="Enter the cost of the gender activity")
     description = models.TextField(max_length=500, help_text="Tell us more here")
 
-    def calculate(self):
-        if self.outcome:
-            total_sum = self.objects.aggregate(Sum('cost'))
-            percentage = (total_sum/self.total_budget) * 100
-            if percentage < 15:
-                print("Need a Follow Up")
-            else:
-                print("doing Pretty well")
-            return percentage
 
     def display_outcome(self):
         """Create a string for the Outcome."""
         return ', '.join(outcome.name for outcome in self.outcome.all())
 
     display_outcome.short_description = 'Outcome'
+
+    def calculate(self):
+        if self.outcome:
+            total_sum = self.objects.aggregate(Sum('cost'))
+            percentage = (total_sum / self.total_budget) * 100
+            if percentage < 15:
+                print("Need a Follow Up")
+            else:
+                print("doing Pretty well")
+            return percentage
 
     def __str__(self):
         """String for representing the Model object."""

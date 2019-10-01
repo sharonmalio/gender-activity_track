@@ -37,7 +37,7 @@ class ActivityListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Activity.objects.all()  # Get 5 books containing the title war
+        return Activity.objects.all()
 
 
 class ActivityDetailView(generic.DetailView):
