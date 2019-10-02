@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import generic
 
-from genderTrack.models import Activity
+from genderTrack.models import Activity, CalculateTotals
 
 
 def index(request):
@@ -49,6 +49,11 @@ class ActivityCreate(CreateView):
     model = Activity
     fields = '__all__'
     initial = {'date_of_creation': '05/01/2018'}
+
+
+class ActivityCalculate(CreateView):
+    model = CalculateTotals
+    fields ='__all__'
 
 
 class ActivityUpdate(UpdateView):

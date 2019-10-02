@@ -40,6 +40,31 @@ class Activity(models.Model):
 
     display_outcome.short_description = 'Outcome'
 
+
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.activity
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this activity."""
+        return reverse('activity_detail', args=[str(self.id)])
+
+
+class ActivityForm(ModelForm):
+    class Meta:
+        model = Activity
+        fields = ['outcome', 'total_budget', 'activity', 'sub_activity', 'cost', 'description']
+
+
+class CalculateTotals(Activity):
+    select_outcome = models.ForeignKey(Activity, on_delete=models.PROTECT, default='outcome 1', editable=True,
+                                       related_query_name='tag', related_name='tags')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.select_outcome
+
     def calculate(self):
         if self.outcome:
             total_sum = self.objects.aggregate(Sum('cost'))
@@ -50,36 +75,11 @@ class Activity(models.Model):
                 print("doing Pretty well")
             return percentage
 
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.activity
-
     def get_absolute_url(self):
-        """Returns the url to access a detail record for this activity."""
-        return reverse('activity-detail', args=[str(self.id)])
+        return reverse('activity-calculate')
 
 
-class ActivityForm(ModelForm):
-    class Meta:
-        model = Activity
-        fields = ['outcome', 'total_budget', 'activity', 'sub_activity', 'cost', 'description']
-
-
-# class CalculateTotals(models.Model):
-#     select_outcome = models.ForeignKey(Activity, on_delete=models.PROTECT)
-#
-#     def calculate(self):
-#         if  self.select_outcome:
-#             Activity.objects.aggregate(total_sum = Sum('cost'))
-#         else:
-#             print("An error has occured")
-#         return total_sum
-#
-#     def calculate_percentage(self):
-#         percentage = (total_sum/Activity.total_budget)*100
-#         if percentage < 15:
-#             print("Need a Follow Up")
-#         else:
-#             print("doing Pretty well")
-#         return percentage
+# class EntryForm(ModelForm):
+#     class Meta:
+#         model = CalculateTotals
 
