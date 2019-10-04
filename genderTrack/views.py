@@ -1,17 +1,17 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from genderTrack.models import Activity, CalculateTotals
 
 
 def index(request):
     """View function for home page of site."""
-
     # Generate counts of some of the main objects
     num_activities = Activity.objects.all().count()
     # num_instances = OutcomeInstance.objects.all().count()
@@ -25,7 +25,7 @@ def index(request):
         'num_activities': num_activities,
         # 'num_instances': num_instances,
         # 'num_instances_available': num_instances_available,
-        'num_visits':num_visits
+        'num_visits': num_visits
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -51,9 +51,19 @@ class ActivityCreate(CreateView):
     initial = {'date_of_creation': '05/01/2018'}
 
 
-class ActivityCalculate(CreateView):
+# @method_decorator(login_required, name='ActivityCalculateView')
+class ActivityCalculateView(CreateView):
     model = CalculateTotals
-    fields ='__all__'
+    fields = ['outcome']
+
+    def savecalculate(request):
+        if request.method == 'POST':
+            form = CalculateTotals(request.POST)
+            if form.is_valid():
+                calculateinstance = form.save()
+                calculateinstance.calculate()
+                calculateinstance.save()
+            return HttpResponseRedirect('activity_list')
 
 
 class ActivityUpdate(UpdateView):

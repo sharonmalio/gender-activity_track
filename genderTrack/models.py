@@ -1,9 +1,13 @@
+from django.utils.formats import sanitize_separators
+from pyexpat import model
+
 from django.db import models
 from django.forms import ModelForm
+from django.shortcuts import redirect
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 import uuid
 from django.db.models import Sum
-
+from django.utils import formats
 
 # class Outcome(models.Model):
 #     """Model representing a book genre."""
@@ -25,13 +29,18 @@ class Activity(models.Model):
     outcome = models.CharField(max_length=8, choices=outcome_entries, default='')
     total_budget = models.FloatField(max_length=100, default="", editable=True, help_text="Please enter the total "
                                                                                            "budget for your outcome")
+    sanitize_separators(total_budget)
     # outcome = models.ForeignKey('Outcome', max_length=8, on_delete=models.CASCADE, default="", editable=True)
     activity = models.CharField(max_length=500, help_text="Please Enter the activity you are reporting for")
 
     sub_activity = models.CharField(max_length=500, help_text="Please Enter the sub_activity of the above activity")
 
     cost = models.FloatField(max_length=500, help_text="Enter the cost of the gender activity")
+    sanitize_separators(cost)
     description = models.TextField(max_length=500, help_text="Tell us more here")
+    # total_budget = formats.sanitize_separators(total_budget)
+    # cost = formats.sanitize_separators(cost)
+
 
 
     def display_outcome(self):
@@ -39,8 +48,6 @@ class Activity(models.Model):
         return ', '.join(outcome.name for outcome in self.outcome.all())
 
     display_outcome.short_description = 'Outcome'
-
-
 
     def __str__(self):
         """String for representing the Model object."""
@@ -63,7 +70,7 @@ class CalculateTotals(Activity):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.select_outcome
+        return self.activity
 
     def calculate(self):
         if self.outcome:
@@ -75,10 +82,12 @@ class CalculateTotals(Activity):
                 print("doing Pretty well")
             return percentage
 
+
+
     def get_absolute_url(self):
-        return reverse('activity-calculate')
+        return reverse('activity_create')
 
-
+#
 # class EntryForm(ModelForm):
 #     class Meta:
 #         model = CalculateTotals
