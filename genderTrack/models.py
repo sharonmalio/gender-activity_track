@@ -74,8 +74,8 @@ class CalculateTotals(Activity):
 
     def calculate(self):
         if self.outcome:
-            total_sum = self.objects.aggregate(Sum('cost'))
-            percentage = (total_sum / self.total_budget) * 100
+            total_sum = self.objects.aggregate(Sum(float('cost')))
+            percentage = (float(total_sum) / self.total_budget) * 100
             if percentage < 15:
                 print("Need a Follow Up")
             else:
